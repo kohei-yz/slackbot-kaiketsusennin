@@ -27,19 +27,20 @@ def jintsuriki_func(message):
             message.reply('キョーキョッキョッキョキョ！！！')
         return
 
-    if (number >= 70):
+    if (number >= 80):
         message.reply('よい神通力じゃ')
-    elif (number >= 30):
+    elif (number >= 50):
         message.reply('神通力はいらんかね〜')
+    elif (number >= 30):
+        message.reply('神通力フォーエバー')
     else:
         message.reply('呼んだかの？')
 
 
-@listen_to(r'^\$教えて .+$')
+@listen_to(r'^教えて\s.+$')
 def wiki_func(message):
     str = message.body['text'] #メッセージ取り出し
-    keyword = str.split(' ')
-
+    keyword = str.split()
     wikipedia.set_lang('jp')
     try:
         rslt = wikipedia.summary(keyword[1])
