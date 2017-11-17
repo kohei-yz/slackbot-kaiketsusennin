@@ -11,12 +11,25 @@ from slackbot.bot import default_reply  # 該当する応答がない場合に�
 def mention_func(message):
     message.reply('もう大丈夫じゃ。この神通力を飲みなされ')
 
+'''
+’神通力’という発言に反応します。
+'''
 @listen_to('神通力')
-def listen_func(message):
+def jintsuriki_func(message):
     number = random.random() * 100
-    if (number >= 80):
+
+    if 'ダーク神通力' in message.body['text']:
+        if (number >= 40):
+            message.reply('覚醒の時は近い……')
+        elif (number >= 5):
+            message.reply('それを使うのか？面白いのぉ……')
+        else:
+            message.reply('キョーキョッキョッキョキョ！！！')
+        return
+
+    if (number >= 70):
         message.reply('よい神通力じゃ')
-    elif (number>=50):
+    elif (number >= 30):
         message.reply('神通力はいらんかね〜')
     else:
         message.reply('呼んだかの？')
