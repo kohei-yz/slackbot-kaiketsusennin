@@ -35,7 +35,7 @@ def jintsuriki_func(message):
         message.reply('呼んだかの？')
 
 
-@listen_to(r'^\$wiki .+$')
+@listen_to(r'^\$教えて .+$')
 def wiki_func(message):
     str = message.body['text'] #メッセージ取り出し
     keyword = str.split(' ')
