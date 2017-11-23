@@ -7,6 +7,8 @@ from slackbot.bot import respond_to     # @botname: で反応するデコーダ
 from slackbot.bot import listen_to      # チャネル内発言で反応するデコーダ
 from slackbot.bot import default_reply  # 該当する応答がない場合に反応するデコーダ
 
+LB_CD = '\n'
+
 @respond_to('たすけて')
 def mention_func(message):
     message.reply('もう大丈夫じゃ。この神通力を飲みなされ')
@@ -42,10 +44,24 @@ def wiki_func(message):
     str = message.body['text'] #メッセージ取り出し
     keyword = str.split()
     wikipedia.set_lang('jp')
+
+    if '仙人' in keyword[1]:
+        message.reply('ほっほ、わしに気があるのか？')
+        return
+
     try:
         rslt = wikipedia.summary(keyword[1])
-    except(wikipedia.exceptions.HTTPTimeoutError, wikipedia.exceptions.DisambiguationError,
+    except wikipedia.exceptions.DisambiguationError as e:
+        # 曖昧さ回避ページの場合は候補を表示する
+        sendMessage = 'これ、もう少しはっきり言わんか。知りたいのはどれなんじゃ？'
+        sendMessage = sendMessage + LB_CD
+        for optionWord in e.options:
+            sendMessage = sendMessage + optionWord
+            sendMessage = sendMessage + LB_CD
+        message.reply(sendMessage)
+
+    except(wikipedia.exceptions.HTTPTimeoutError,
             wikipedia.exceptions.PageError, wikipedia.exceptions.RedirectError):
-        message.send('そんなことより霞(かすみ)を吸いに行かんか')
+        message.reply('そんなことより霞(かすみ)を吸いに行かんか')
     else:
-        message.send('「' + keyword[1] + '」について教えてやるかの\n>>>' + rslt)
+        message.reply('「' + keyword[1] + '」について教えてやるかの' + LB_CD + '>>>' + rslt)
