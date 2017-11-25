@@ -56,10 +56,10 @@ def wiki_func(message):
         sendMessage = 'これ、もう少しはっきり言わんか。知りたいのはどれなんじゃ？'
         sendMessage = sendMessage + LB_CD
         for optionWord in e.options:
-            sendMessage = sendMessage + optionWord
+            # リプライされたキーワードで検索し直しせるよう、スペースはアンダーバーに置換する
+            sendMessage = sendMessage + optionWord.replace(' ', '_')
             sendMessage = sendMessage + LB_CD
         message.reply(sendMessage)
-
     except(wikipedia.exceptions.HTTPTimeoutError,
             wikipedia.exceptions.PageError, wikipedia.exceptions.RedirectError):
         message.reply('そんなことより霞(かすみ)を吸いに行かんか')
