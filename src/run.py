@@ -23,5 +23,5 @@ def main():
 
 if __name__ == "__main__":
     print('start slackbot')
-    daemonize()
+    # daemonize()
     main()
