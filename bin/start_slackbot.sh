@@ -1,3 +1,3 @@
 #!/bin/sh
 
-python ${BOT_HOME}/slackbot-kaiketsusennin/src/run.py
+python ${BOT_HOME}/src/run.py
